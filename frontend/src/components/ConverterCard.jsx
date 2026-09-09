@@ -34,7 +34,7 @@ export default function ConverterCard({ currencies, source, setSource, target, s
       await api.addFavorite({ source, target });
       if (onFavoriteAdded) onFavoriteAdded();
     } catch (e) {
-      console.error('Already in favorites or error occurred.');
+      console.error('Already in favorites or error occurred.', e);
     }
   };
 
