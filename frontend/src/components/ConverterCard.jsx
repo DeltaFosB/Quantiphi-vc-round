@@ -83,18 +83,18 @@ export default function ConverterCard({ currencies, onConvertSuccess }) {
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col items-center justify-between gap-6 rounded-xl bg-slate-50 p-6 sm:flex-row">
+      <div className="mt-8 flex flex-col items-center justify-between gap-6 pt-6 border-t border-slate-100 sm:flex-row">
         <div className="flex flex-col">
           {result ? (
             <>
               <p className="text-sm font-medium text-slate-500">{result.amount} {result.source} =</p>
-              <h2 className="text-4xl font-bold tracking-tight text-slate-900">
-                {result.converted_amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })} <span className="text-2xl text-slate-500">{result.target}</span>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+                {result.converted_amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })} <span className="text-xl text-slate-500">{result.target}</span>
               </h2>
               <p className="mt-1 text-sm text-emerald-600 font-medium">1 {result.source} = {result.rate} {result.target}</p>
             </>
           ) : (
-            <p className="text-lg font-medium text-slate-400">Enter amount and click convert</p>
+            <p className="text-base font-medium text-slate-400">Ready to convert</p>
           )}
         </div>
         
@@ -102,14 +102,14 @@ export default function ConverterCard({ currencies, onConvertSuccess }) {
             <button
             onClick={handleSaveFavorite}
             title="Save Pair to Favorites"
-            className="flex h-14 w-14 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400 transition-all hover:border-amber-300 hover:text-amber-500 active:scale-95"
+            className="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400 transition-all hover:border-amber-300 hover:text-amber-500 active:scale-95"
             >
-            <Star size={24} className="fill-current opacity-20 hover:opacity-100" />
+            <Star size={20} className="fill-current opacity-20 hover:opacity-100" />
             </button>
             <button 
             onClick={handleConvert}
             disabled={loading}
-            className="flex-1 rounded-xl bg-indigo-600 px-8 py-4 font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 active:scale-95 disabled:opacity-70 sm:flex-none"
+            className="flex-1 rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 active:scale-95 disabled:opacity-70 sm:flex-none"
             >
             {loading ? 'Converting...' : 'Convert'}
             </button>
