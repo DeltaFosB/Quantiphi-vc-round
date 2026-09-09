@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Clock, Star, Trash2 } from 'lucide-react';
 import { api } from '../api';
 
-export default function Sidebar() {
+export default function Sidebar({ refreshTrigger, setSource, setTarget }) {
   const [tab, setTab] = useState('favorites'); // 'favorites' | 'history'
   const [favorites, setFavorites] = useState([]);
   const [history, setHistory] = useState([]);
@@ -19,11 +19,17 @@ export default function Sidebar() {
 
   useEffect(() => {
     fetchData();
-  }, [tab]);
+  }, [tab, refreshTrigger]);
 
-  const handleDeleteFav = async (id) => {
+  const handleDeleteFav = async (e, id) => {
+    e.stopPropagation(); // prevent clicking the row
     await api.deleteFavorite(id);
     fetchData();
+  };
+
+  const handlePairSelect = (source, target) => {
+    if (setSource) setSource(source);
+    if (setTarget) setTarget(target);
   };
 
   return (
@@ -48,9 +54,15 @@ export default function Sidebar() {
           favorites.length > 0 ? (
             <ul className="space-y-1">
               {favorites.map(f => (
-                <li key={f.id} className="flex items-center justify-between rounded-xl p-3 hover:bg-slate-50 transition-colors">
-                  <span className="font-semibold text-slate-800">{f.source_currency} <span className="text-slate-400 font-normal mx-1">→</span> {f.target_currency}</span>
-                  <button onClick={() => handleDeleteFav(f.id)} className="text-slate-300 hover:text-rose-500 p-1 rounded-md transition-colors">
+                <li 
+                  key={f.id} 
+                  onClick={() => handlePairSelect(f.source_currency, f.target_currency)}
+                  className="flex items-center justify-between rounded-xl p-3 hover:bg-slate-50 transition-colors cursor-pointer group"
+                >
+                  <span className="font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors">
+                    {f.source_currency} <span className="text-slate-400 font-normal mx-1">→</span> {f.target_currency}
+                  </span>
+                  <button onClick={(e) => handleDeleteFav(e, f.id)} className="text-slate-300 hover:text-rose-500 p-1 rounded-md transition-colors">
                     <Trash2 size={16} />
                   </button>
                 </li>
@@ -66,9 +78,15 @@ export default function Sidebar() {
           history.length > 0 ? (
             <ul className="space-y-1">
               {history.map(h => (
-                <li key={h.id} className="flex flex-col rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                <li 
+                  key={h.id} 
+                  onClick={() => handlePairSelect(h.source_currency, h.target_currency)}
+                  className="flex flex-col rounded-xl p-3 hover:bg-slate-50 transition-colors cursor-pointer group"
+                >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-semibold text-slate-800">{h.source_currency} <span className="text-slate-400 font-normal mx-1">→</span> {h.target_currency}</span>
+                    <span className="font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors">
+                      {h.source_currency} <span className="text-slate-400 font-normal mx-1">→</span> {h.target_currency}
+                    </span>
                     <span className="text-xs text-slate-400">{new Date(h.created_at).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">

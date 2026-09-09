@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowRightLeft, Star } from 'lucide-react';
 import { api } from '../api';
 
-export default function ConverterCard({ currencies, onConvertSuccess }) {
-  const [source, setSource] = useState('USD');
-  const [target, setTarget] = useState('EUR');
+export default function ConverterCard({ currencies, source, setSource, target, setTarget, onFavoriteAdded, onConversion }) {
   const [amount, setAmount] = useState('100');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,7 +21,7 @@ export default function ConverterCard({ currencies, onConvertSuccess }) {
     try {
       const res = await api.convert({ source, target, amount: parseFloat(amount) });
       setResult(res);
-      if (onConvertSuccess) onConvertSuccess(res.source, res.target);
+      if (onConversion) onConversion();
     } catch (e) {
       console.error(e);
     } finally {
@@ -34,9 +32,9 @@ export default function ConverterCard({ currencies, onConvertSuccess }) {
   const handleSaveFavorite = async () => {
     try {
       await api.addFavorite({ source, target });
-      alert('Saved to favorites!');
+      if (onFavoriteAdded) onFavoriteAdded();
     } catch (e) {
-      alert('Already in favorites or error occurred.');
+      console.error('Already in favorites or error occurred.');
     }
   };
 
