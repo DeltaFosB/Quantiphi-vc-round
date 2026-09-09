@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Clock, Star, Trash2 } from 'lucide-react';
 import { api } from '../api';
 
-export default function Sidebar({ refreshTrigger, setSource, setTarget }) {
+export default function Sidebar({ refreshTrigger, setSource, setTarget, setAmount }) {
   const [tab, setTab] = useState('favorites'); // 'favorites' | 'history'
   const [favorites, setFavorites] = useState([]);
   const [history, setHistory] = useState([]);
@@ -22,14 +22,15 @@ export default function Sidebar({ refreshTrigger, setSource, setTarget }) {
   }, [tab, refreshTrigger]);
 
   const handleDeleteFav = async (e, id) => {
-    e.stopPropagation(); // prevent clicking the row
+    e.stopPropagation();
     await api.deleteFavorite(id);
     fetchData();
   };
 
-  const handlePairSelect = (source, target) => {
+  const handlePairSelect = (source, target, amt) => {
     if (setSource) setSource(source);
     if (setTarget) setTarget(target);
+    if (setAmount && amt !== undefined) setAmount(amt.toString());
   };
 
   return (
@@ -80,7 +81,7 @@ export default function Sidebar({ refreshTrigger, setSource, setTarget }) {
               {history.map(h => (
                 <li 
                   key={h.id} 
-                  onClick={() => handlePairSelect(h.source_currency, h.target_currency)}
+                  onClick={() => handlePairSelect(h.source_currency, h.target_currency, h.amount)}
                   className="flex flex-col rounded-xl p-3 hover:bg-slate-50 transition-colors cursor-pointer group"
                 >
                   <div className="flex items-center justify-between mb-1">

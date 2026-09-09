@@ -11,6 +11,7 @@ function App() {
   const [currencies, setCurrencies] = useState({});
   const [source, setSource] = useState('USD');
   const [target, setTarget] = useState('EUR');
+  const [amount, setAmount] = useState('100');
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
@@ -33,6 +34,8 @@ function App() {
                 setSource={setSource} 
                 target={target} 
                 setTarget={setTarget}
+                amount={amount}
+                setAmount={setAmount}
                 onFavoriteAdded={() => setRefreshTrigger(prev => prev + 1)}
                 onConversion={() => setRefreshTrigger(prev => prev + 1)}
               />
@@ -42,7 +45,12 @@ function App() {
                   <TrendChart source={source} target={target} />
                 </div>
                 <div className="lg:col-span-1">
-                  <Sidebar refreshTrigger={refreshTrigger} setSource={setSource} setTarget={setTarget} />
+                  <Sidebar 
+                    refreshTrigger={refreshTrigger} 
+                    setSource={setSource} 
+                    setTarget={setTarget} 
+                    setAmount={setAmount}
+                  />
                 </div>
               </div>
             </div>

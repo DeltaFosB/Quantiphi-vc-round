@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRightLeft, Star } from 'lucide-react';
 import { api } from '../api';
 
-export default function ConverterCard({ currencies, source, setSource, target, setTarget, onFavoriteAdded, onConversion }) {
-  const [amount, setAmount] = useState('100');
+export default function ConverterCard({ currencies, source, setSource, target, setTarget, amount, setAmount, onFavoriteAdded, onConversion }) {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 

@@ -2,14 +2,14 @@
 
 A responsive, high-performance web application built for real-time currency conversion, 30-day historical trend analysis, and a specialized "Travel Budget" comparison mode.
 
-## 🚀 Features
+## Features
 
 - **Live Conversions:** Fetch real-time exchange rates securely on the server-side without requiring paid API keys.
 - **Interactive 30-Day Trends:** Dynamic, responsive line charts powered by Recharts that update instantly when swapping currencies.
 - **Favorites & History:** Persistent local caching using SQLite. Save your most-used pairs and simply click them in the sidebar to load them instantly.
 - **Travel Budget Mode ("Vibe Check"):** A sleek comparison dashboard that calculates a base budget equivalent across 5 major global currencies (USD, EUR, GBP, JPY, AUD) simultaneously.
 
-## 🛠 Tech Stack & Best Practices
+## Tech Stack & Best Practices
 
 **Backend:** FastAPI (Python 3), SQLite3, Uvicorn, HTTPX, Pydantic.
 - *Architecture:* Clean Architecture with explicitly separated Routers, Services, CRUD layers, and Data Validation Schemas.
@@ -19,7 +19,7 @@ A responsive, high-performance web application built for real-time currency conv
 - *Architecture:* Highly modular components utilizing lifted React state for instant UI reactivity.
 - *Design System:* Clean, fintech-inspired aesthetic featuring `animate-in` transitions, active-state micro-interactions, and a fully responsive grid.
 
-## 📦 Setup & Installation
+## Setup & Installation
 
 ### 1. Backend Setup
 ```bash
