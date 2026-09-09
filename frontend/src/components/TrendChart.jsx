@@ -36,7 +36,7 @@ export default function TrendChart({ source, target }) {
       ) : (
         <div className="h-[250px] w-full flex-1">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 5, right: 0, left: -20, bottom: 0 }}>
+            <LineChart data={data} margin={{ top: 5, right: 20, left: 10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
               <XAxis 
                 dataKey="date" 
@@ -46,6 +46,7 @@ export default function TrendChart({ source, target }) {
                 minTickGap={30}
               />
               <YAxis 
+                width={70}
                 domain={['auto', 'auto']} 
                 tick={{ fontSize: 12, fill: '#64748b' }} 
                 tickLine={false} 

@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-12">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Header isTravelMode={isTravelMode} setIsTravelMode={setIsTravelMode} />
         
         <main className="mt-8">
